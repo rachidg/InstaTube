@@ -1,0 +1,47 @@
+<!doctype html PUBLIC>
+
+<html>
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="http://code.jquery.com/jquery-latest.js"> </script>
+    <title>InstaTube</title>
+  </head>
+
+  <body>
+	<h1>Search YouTube Instantly</h1>
+  <br/>
+
+    <!-- Create a search bar and a div to store results -->
+    <input id="searchTerm" />
+    <div id="results"></div>
+
+    <script>
+      // Search on key release
+      $("#searchTerm").keyup(function(e){
+        var q = $("#searchTerm").val();
+
+        // Get JSON file of search results from YouTube API based on user input
+        $.getJSON("https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=50&key=AIzaSyA41nzY7hfyCoGe9G2Nspx_XgThDzAcVO4&q="+q,
+        function(data) {
+
+          $("#results").empty();
+          $("#results").append("<p>Results for <b>" + q + "</b>:</p>");
+
+          $.each(data.items, function(i,item) {
+
+            // Display top result in an embedded iframe
+            if (i === 0) {
+              $("#results").append("<iframe float='middle' width='560' height='315' src='https://www.youtube.com/embed/"+item.id.videoId+"'</iframe><br><br>")
+
+            //Display other results as a table of linked thumbnails and titles
+            } else {
+              $("#results").append("<table><tr><td><a href='http://youtu.be/"+item.id.videoId+"'><img src='"+item.snippet.thumbnails.medium.url+"'></a></td><td>"+item.snippet.title+"</td></tr></table><br><br>");
+            }
+          });
+      });
+    });
+    </script>
+
+  </body>
+</html>

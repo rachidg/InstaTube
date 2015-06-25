@@ -1,0 +1,28 @@
+body {
+  background-color: #000000;
+}
+
+h1 {
+  text-align: center;
+  color: #F8F8F8;
+}
+
+input {
+  display: block;
+  margin: 0 auto;
+  width: 40%;
+}
+
+div {
+  margin: 0 auto;
+  text-align: center;
+  width: 560;
+}
+
+table {
+  color: #F8F8F8;
+}
+
+p {
+  color: #F8F8F8;
+}
